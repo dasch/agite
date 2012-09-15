@@ -31,6 +31,10 @@ h1 {
   background-color: #FFF;
 }
 
+.story p {
+  margin: 10px;
+}
+
 .story img {
   position: absolute;
   width: 40px;

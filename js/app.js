@@ -4,18 +4,27 @@ var App = Em.Application.create({
   ready: function() {
     this._super();
 
-    this.getMilestone();
+    this.addSection("open", "In Progress");
+    this.addSection("closed", "Done");
+
+    App.milestoneController.refresh(); 
+  },
+
+  addSection: function(state, title) {
+    var controller = App.IssuesController.create();
+    controller.set("state", state);
 
     var sectionView = Em.View.create({
       templateName: "section",
-      stories: App.issuesController
+      title: title,
+      stories: controller
     });
 
     sectionView.append();
-  },
 
-  getMilestone: function() {
-    App.milestoneController.refresh();
+    App.milestoneController.milestone.addObserver("number", function() {
+      controller.refresh();
+    });
   }
 });
 
@@ -26,22 +35,27 @@ App.Issue = Em.Object.extend({
   state: "open"
 });
 
-App.issuesController = Em.ArrayController.create({
-  content: [],
+App.IssuesController = Em.ArrayController.extend({
+  state: null,
+
+  title: null,
+
+  content: null,
 
   addIssue: function(issue) {
     this.pushObject(issue);
   },
 
   refresh: function() {
+    this.set("content", []);
+
     var self = this;
     var milestoneNumber = App.milestoneController.milestone.number;
 
     if (milestoneNumber === undefined) return;
 
-    var state = "open";
     var endpoint = App.repo_path + "/issues";
-    var params = { milestone: milestoneNumber, state: state };
+    var params = { milestone: milestoneNumber, state: this.state };
 
     $.getJSON(endpoint, params, function(issues) {
       for (var i = 0; i < issues.length; i++) {
@@ -69,8 +83,6 @@ App.milestoneController = Em.Object.create({
 
       self.milestone.set("title", milestone.title);
       self.milestone.set("number", milestone.number);
-
-      App.issuesController.refresh();
     });
   }
 });

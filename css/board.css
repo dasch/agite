@@ -8,6 +8,7 @@ h1 {
 
 .section {
   display: block;
+  float: left;
   margin: 30px;
   padding: 10px;
   width: 400px;

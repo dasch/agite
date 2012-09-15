@@ -67,7 +67,7 @@ App.storiesController = Em.ArrayController.create({
     var self = this;
     var endpoint = App.repo_path + "/issues?callback=?";
     var sprintNumber = App.sprintController.sprint.number;
-    var params = { sprint: sprintNumber, state: state };
+    var params = { milestone: sprintNumber, state: state };
 
     $.getJSON(endpoint, params, function(response) {
       var data = response.data;

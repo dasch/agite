@@ -34,10 +34,10 @@
       <div class="story">
         <p>{{title}}</p>
         {{#if assignee}}
-          <img {{bindAttr src="assignee.avatar_url"}} />
+          <img {{bindAttr src="assignee.avatar_url" title="assignee.login"}} />
         {{/if}}
-        {{#if pull_request.html_url}}
-          <strong>Pull Request</strong>
+        {{#if isInProgress}}
+          <strong>In Progress</strong>
         {{/if}}
       </div>
       {{/each}}

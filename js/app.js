@@ -4,7 +4,7 @@ var App = Em.Application.create({
   ready: function() {
     this._super();
 
-    this.addSection("open", "In Progress");
+    this.addSection("open", "To Do");
     this.addSection("closed", "Done");
 
     App.milestoneController.refresh(); 
@@ -31,17 +31,16 @@ App.Story = Em.Object.extend({
   title: null,
   number: null,
   assignee: null,
-  state: null
+
+  isInProgress: function() {
+    return this.pull_request.html_url !== null && this.state === "open";
+  }.property()
 });
 
 App.StoriesController = Em.ArrayController.extend({
   state: null,
 
   content: null,
-
-  addIssue: function(issue) {
-    this.pushObject(issue);
-  },
 
   refresh: function() {
     this.set("content", []);
@@ -54,11 +53,10 @@ App.StoriesController = Em.ArrayController.extend({
     var endpoint = App.repo_path + "/issues";
     var params = { milestone: milestoneNumber, state: this.state };
 
-    $.getJSON(endpoint, params, function(issues) {
-      for (var i = 0; i < issues.length; i++) {
-        var issue = issues[i];
-        console.log(issue);
-        self.addIssue(issue);
+    $.getJSON(endpoint, params, function(stories) {
+      for (var i = 0; i < stories.length; i++) {
+        var story = App.Story.create(stories[i]);
+        self.pushObject(story);
       }
     });
   }

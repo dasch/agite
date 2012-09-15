@@ -72,7 +72,7 @@ App.milestoneController = Em.Object.create({
 
   refresh: function() {
     var self = this;
-    var params = { sort: "due_at", direction: "asc", limit:1 };
+    var params = { sort: "due_at", direction: "asc", limit: 1 };
     var endpoint = App.repo_path + "/milestones";
 
     $.getJSON(endpoint, params, function(milestones) {

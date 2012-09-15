@@ -8,9 +8,9 @@ var App = Em.Application.create({
     this.addSection("in-progress", "In Progress");
     this.addSection("done", "Done");
 
-    App.milestoneController.refresh(); 
+    App.sprintController.refresh(); 
 
-    App.milestoneController.milestone.addObserver("number", function() {
+    App.sprintController.sprint.addObserver("number", function() {
       App.storiesController.refresh();
     });
   },
@@ -56,8 +56,8 @@ App.storiesController = Em.ArrayController.create({
   refresh: function() {
     this.set("content", []);
 
-    var milestoneNumber = App.milestoneController.milestone.number;
-    if (milestoneNumber === undefined) return;
+    var sprintNumber = App.sprintController.sprint.number;
+    if (sprintNumber === undefined) return;
 
     this.loadIssues("open");
     this.loadIssues("closed");
@@ -66,8 +66,8 @@ App.storiesController = Em.ArrayController.create({
   loadIssues: function(state) {
     var self = this;
     var endpoint = App.repo_path + "/issues";
-    var milestoneNumber = App.milestoneController.milestone.number;
-    var params = { milestone: milestoneNumber, state: state };
+    var sprintNumber = App.sprintController.sprint.number;
+    var params = { sprint: sprintNumber, state: state };
 
     $.getJSON(endpoint, params, function(data) {
       for (var i = 0; i < data.length; i++) {
@@ -79,8 +79,8 @@ App.storiesController = Em.ArrayController.create({
   }
 });
 
-App.milestoneController = Em.Object.create({
-  milestone: Em.Object.create({
+App.sprintController = Em.Object.create({
+  sprint: Em.Object.create({
     number: null,
     title: "N/A"
   }),
@@ -90,11 +90,11 @@ App.milestoneController = Em.Object.create({
     var params = { sort: "due_at", direction: "asc", limit: 1 };
     var endpoint = App.repo_path + "/milestones";
 
-    $.getJSON(endpoint, params, function(milestones) {
-      var milestone = milestones[0];
+    $.getJSON(endpoint, params, function(sprints) {
+      var sprint = sprints[0];
 
-      self.milestone.set("title", milestone.title);
-      self.milestone.set("number", milestone.number);
+      self.sprint.set("title", sprint.title);
+      self.sprint.set("number", sprint.number);
     });
   }
 });

@@ -65,14 +65,15 @@ App.storiesController = Em.ArrayController.create({
 
   loadIssues: function(state) {
     var self = this;
-    var endpoint = App.repo_path + "/issues";
+    var endpoint = App.repo_path + "/issues?callback=?";
     var sprintNumber = App.sprintController.sprint.number;
     var params = { sprint: sprintNumber, state: state };
 
-    $.getJSON(endpoint, params, function(data) {
+    $.getJSON(endpoint, params, function(response) {
+      var data = response.data;
+
       for (var i = 0; i < data.length; i++) {
         var story = App.Story.create(data[i]);
-        console.log(story);
         self.pushObject(story);
       }
     });
@@ -88,10 +89,10 @@ App.sprintController = Em.Object.create({
   refresh: function() {
     var self = this;
     var params = { sort: "due_at", direction: "asc", limit: 1 };
-    var endpoint = App.repo_path + "/milestones";
+    var endpoint = App.repo_path + "/milestones?callback=?";
 
-    $.getJSON(endpoint, params, function(sprints) {
-      var sprint = sprints[0];
+    $.getJSON(endpoint, params, function(response) {
+      var sprint = response.data[0];
 
       self.sprint.set("title", sprint.title);
       self.sprint.set("number", sprint.number);

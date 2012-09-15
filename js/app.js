@@ -16,18 +16,20 @@ var App = Em.Application.create({
   },
 
   addSection: function(status, title) {
-    var sectionView = Em.View.create({
-      templateName: "section",
-      title: title,
-      storyList: null,
-      storyListBinding: "App.storiesController",
-      stories: function() {
-        return this.get("storyList").filterProperty("status", status);
-      }.property("storyList.@each")
-    });
-
+    sectionView = App.SectionView.create({ status: status, title: title });
     sectionView.append();
   }
+});
+
+App.SectionView = Em.View.extend({
+  templateName: "section",
+  title: null,
+  status: null,
+  storyList: null,
+  storyListBinding: "App.storiesController",
+  stories: function() {
+    return this.get("storyList").filterProperty("status", this.status);
+  }.property("storyList.@each")
 });
 
 App.Story = Em.Object.extend({

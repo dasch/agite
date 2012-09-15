@@ -32,7 +32,7 @@
       <h2>{{title}}</h2>
       {{#each stories}}
       <div class="story">
-        <p>{{title}}</p>
+        <p><a {{bindAttr href="html_url"}}>{{title}}</a></p>
         {{#if assignee}}
           <img {{bindAttr src="assignee.avatar_url" title="assignee.login"}} />
         {{/if}}

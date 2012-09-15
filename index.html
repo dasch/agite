@@ -36,6 +36,9 @@
         {{#if assignee}}
           <img {{bindAttr src="assignee.avatar_url"}} />
         {{/if}}
+        {{#if pull_request.html_url}}
+          <strong>Pull Request</strong>
+        {{/if}}
       </div>
       {{/each}}
     </div>

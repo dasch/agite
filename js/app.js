@@ -11,8 +11,7 @@ var App = Em.Application.create({
   },
 
   addSection: function(state, title) {
-    var controller = App.IssuesController.create();
-    controller.set("state", state);
+    var controller = App.StoriesController.create({ state: state });
 
     var sectionView = Em.View.create({
       templateName: "section",
@@ -28,17 +27,15 @@ var App = Em.Application.create({
   }
 });
 
-App.Issue = Em.Object.extend({
+App.Story = Em.Object.extend({
   title: null,
   number: null,
   assignee: null,
-  state: "open"
+  state: null
 });
 
-App.IssuesController = Em.ArrayController.extend({
+App.StoriesController = Em.ArrayController.extend({
   state: null,
-
-  title: null,
 
   content: null,
 

@@ -9,7 +9,7 @@ h1 {
 .section {
   display: block;
   float: left;
-  margin: 30px;
+  margin: 30px 20px;
   padding: 10px;
   width: 400px;
   border: 1px solid black;

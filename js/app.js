@@ -4,26 +4,29 @@ var App = Em.Application.create({
   ready: function() {
     this._super();
 
-    this.addSection("open", "To Do");
-    this.addSection("closed", "Done");
+    this.addSection("to-do", "To Do");
+    this.addSection("in-progress", "In Progress");
+    this.addSection("done", "Done");
 
     App.milestoneController.refresh(); 
+
+    App.milestoneController.milestone.addObserver("number", function() {
+      App.storiesController.refresh();
+    });
   },
 
-  addSection: function(state, title) {
-    var controller = App.StoriesController.create({ state: state });
-
+  addSection: function(status, title) {
     var sectionView = Em.View.create({
       templateName: "section",
       title: title,
-      stories: controller
+      storyList: null,
+      storyListBinding: "App.storiesController",
+      stories: function() {
+        return this.get("storyList").filterProperty("status", status);
+      }.property("storyList.@each")
     });
 
     sectionView.append();
-
-    App.milestoneController.milestone.addObserver("number", function() {
-      controller.refresh();
-    });
   }
 });
 
@@ -32,30 +35,44 @@ App.Story = Em.Object.extend({
   number: null,
   assignee: null,
 
-  isInProgress: function() {
-    return this.pull_request.html_url !== null && this.state === "open";
+  status: function() {
+    var hasPullRequest = (this.pull_request.html_url === null);
+
+    if (this.state === "closed") {
+      return "done";
+    } else if (this.state === "open") {
+      if (hasPullRequest) {
+        return "in-progress";
+      } else {
+        return "to-do";
+      }
+    }
   }.property()
 });
 
-App.StoriesController = Em.ArrayController.extend({
-  state: null,
-
+App.storiesController = Em.ArrayController.create({
   content: null,
 
   refresh: function() {
     this.set("content", []);
 
-    var self = this;
     var milestoneNumber = App.milestoneController.milestone.number;
-
     if (milestoneNumber === undefined) return;
 
-    var endpoint = App.repo_path + "/issues";
-    var params = { milestone: milestoneNumber, state: this.state };
+    this.loadIssues("open");
+    this.loadIssues("closed");
+  },
 
-    $.getJSON(endpoint, params, function(stories) {
-      for (var i = 0; i < stories.length; i++) {
-        var story = App.Story.create(stories[i]);
+  loadIssues: function(state) {
+    var self = this;
+    var endpoint = App.repo_path + "/issues";
+    var milestoneNumber = App.milestoneController.milestone.number;
+    var params = { milestone: milestoneNumber, state: state };
+
+    $.getJSON(endpoint, params, function(data) {
+      for (var i = 0; i < data.length; i++) {
+        var story = App.Story.create(data[i]);
+        console.log(story);
         self.pushObject(story);
       }
     });

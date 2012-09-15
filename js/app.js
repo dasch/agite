@@ -36,7 +36,7 @@ App.Story = Em.Object.extend({
   assignee: null,
 
   status: function() {
-    var hasPullRequest = (this.pull_request.html_url === null);
+    var hasPullRequest = (this.pull_request.html_url !== null);
 
     if (this.state === "closed") {
       return "done";

@@ -37,7 +37,7 @@ class GitBoard < Sinatra::Base
   get '/auth/:provider/callback' do
     if params[:provider] == 'github'
       auth = request.env['omniauth.auth']
-      token = auth['credential']['token']
+      token = auth['credentials']['token']
     else
       token = "foo"
     end

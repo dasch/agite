@@ -11,7 +11,7 @@ class GitBoard < Sinatra::Base
 
   use OmniAuth::Builder do
     provider :developer
-    provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
+    provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'], scope: "user,repo"
   end
 
   enable :sessions

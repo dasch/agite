@@ -1,4 +1,6 @@
 var App = Em.Application.create({
+  UPDATE_INTERVAL: 60 * 1000,
+
   org: null,
 
   repo: null,
@@ -75,13 +77,17 @@ App.storiesController = Em.ArrayController.create({
   content: null,
 
   refresh: function() {
-    this.set("content", []);
-
     var sprintNumber = App.sprintController.sprint.number;
     if (sprintNumber === undefined) return;
 
+    this.set("content", []);
+
     this.loadIssues("open");
     this.loadIssues("closed");
+
+    setTimeout(function() {
+      App.storiesController.refresh();
+    }, App.UPDATE_INTERVAL);
   },
 
   loadIssues: function(state) {

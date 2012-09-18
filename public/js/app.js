@@ -106,19 +106,11 @@ App.storiesController = Em.ArrayController.create({
       params.access_token = accessToken;
     }
 
-    var callback = function(data) {
+    $.getJSON(endpoint, params, function(data) {
       for (var i = 0; i < data.length; i++) {
         var story = App.Story.create(data[i]);
         self.pushObject(story);
       }
-    };
-
-    $.ajax({
-      url: endpoint,
-      data: params,
-      ifModified: true,
-      dataType: 'json',
-      success: callback
     });
   }
 });

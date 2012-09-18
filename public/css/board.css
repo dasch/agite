@@ -13,7 +13,8 @@ h1 {
   padding: 10px;
   width: 400px;
   border: 1px solid #DDD;
-  background-color: #FDFDFD;
+  border-radius: 5px;
+  background-color: #F0F0F4;
 }
 
 .story {
@@ -23,10 +24,26 @@ h1 {
   padding: 4px;
   padding-right: 45px;
   height: 40px;
-  border: 4px solid #EEE;
+  border: 1px solid #BBB;
   border-radius: 8px;
   min-height: 40px;
   background-color: #FFF;
+
+  box-shadow: 0 1px 8px #CCC;
+
+  background-image: linear-gradient(top, #FFFFFF 10%, #F3F3F3 70%);
+  background-image: -o-linear-gradient(top, #FFFFFF 10%, #F3F3F3 70%);
+  background-image: -moz-linear-gradient(top, #FFFFFF 10%, #F3F3F3 70%);
+  background-image: -webkit-linear-gradient(top, #FFFFFF 10%, #F3F3F3 70%);
+  background-image: -ms-linear-gradient(top, #FFFFFF 10%, #F3F3F3 70%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.1, #FFFFFF),
+    color-stop(0.7, #F3F3F3)
+  );
 }
 
 .story p {

@@ -38,7 +38,7 @@ class GitBoard < Sinatra::Base
   end
 
   get '/' do
-    redirect '/dasch/agite'
+    redirect '/dasch/agile-glory'
   end
 
   get '/:org/:repo' do

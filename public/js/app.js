@@ -97,7 +97,7 @@ App.storiesController = Em.ArrayController.create({
     };
 
     if (accessToken !== "") {
-      params.accessToken = accessToken;
+      params.access_token = accessToken;
     }
 
     $.getJSON(endpoint, params, function(response) {
@@ -130,7 +130,7 @@ App.sprintController = Em.Object.create({
     };
 
     if (accessToken !== "") {
-      params.accessToken = accessToken;
+      params.access_token = accessToken;
     }
 
     $.getJSON(endpoint, params, function(response) {

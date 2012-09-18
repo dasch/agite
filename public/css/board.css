@@ -28,10 +28,10 @@ h1 {
   margin: 10px 0;
   padding: 4px;
   padding-right: 45px;
-  height: 40px;
+  min-height: 40px;
   border: 1px solid #BBB;
   border-radius: 8px;
-  min-height: 40px;
+  min-height: 38px;
   background-color: #FFF;
 
   box-shadow: 0 1px 8px #CCC;
@@ -53,6 +53,11 @@ h1 {
 
 .story p {
   margin: 10px;
+  padding: 0;
+}
+
+.story p a {
+  text-decoration: none;
 }
 
 .story img {
@@ -62,7 +67,7 @@ h1 {
   right: 2px;
   top: 2px;
   border: 1px solid #DDD;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .story .number {

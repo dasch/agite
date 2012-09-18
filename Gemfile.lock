@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/gamepoet/sinatra-ember.git
+  revision: 92a70c56cf1023d4871ebea9a6d37218540d868b
+  specs:
+    sinatra-ember (0.0.1)
+      sinatra
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -40,3 +47,4 @@ DEPENDENCIES
   omniauth
   omniauth-github
   sinatra
+  sinatra-ember!

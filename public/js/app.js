@@ -25,6 +25,12 @@ var App = Em.Application.create({
     this.set('repo', $(document.body).data('github-repo'));
     this.set('accessToken', $(document.body).data('github-token'));
 
+    var sprintView = Ember.View.create({
+      templateName: "templates/sprint"
+    });
+
+    sprintView.append();
+
     this.addSection("to-do", "To Do");
     this.addSection("in-progress", "In Progress");
     this.addSection("done", "Done");
@@ -43,7 +49,7 @@ var App = Em.Application.create({
 });
 
 App.SectionView = Em.View.extend({
-  templateName: "section",
+  templateName: "templates/section",
   title: null,
   status: null,
   storyList: null,

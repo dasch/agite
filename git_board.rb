@@ -1,8 +1,14 @@
-require 'sinatra'
-require 'omniauth'
-require 'omniauth-github'
+require 'bundler'
+
+Bundler.require
 
 class GitBoard < Sinatra::Base
+  register Sinatra::Ember
+
+  ember do
+    templates "/js/templates.js", ["templates/*.handlebars"]
+  end
+
   configure(:development) do
     set :session_secret, "something"
   end

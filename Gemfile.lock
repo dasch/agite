@@ -20,5 +20,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
   sinatra
   thin

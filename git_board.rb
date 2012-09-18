@@ -24,17 +24,19 @@ class GitBoard < Sinatra::Base
     end
   end
 
-  get '/auth/:provider/callback' do
-    if params[:provider] == 'github'
-      auth = request.env['omniauth.auth']
-      token = auth['credentials']['token']
-    else
-      token = ""
+  %w(get post).each do |method|
+    send(method, '/auth/:provider/callback') do
+      if params[:provider] == 'github'
+        auth = request.env['omniauth.auth']
+        token = auth['credentials']['token']
+      else
+        token = ""
+      end
+
+      session['token'] = token
+
+      redirect session['return_to']
     end
-
-    session['token'] = token
-
-    redirect session['return_to']
   end
 
   get '/' do

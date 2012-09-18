@@ -93,7 +93,7 @@ App.storiesController = Em.ArrayController.create({
   loadIssues: function(state) {
     var self = this;
     var base_path = App.get("base_path");
-    var endpoint = base_path + "/issues?callback=?";
+    var endpoint = base_path + "/issues";
     var sprintNumber = App.sprintController.sprint.number;
     var accessToken = App.get("accessToken");
 
@@ -106,9 +106,7 @@ App.storiesController = Em.ArrayController.create({
       params.access_token = accessToken;
     }
 
-    $.getJSON(endpoint, params, function(response) {
-      var data = response.data;
-
+    $.getJSON(endpoint, params, function(data) {
       for (var i = 0; i < data.length; i++) {
         var story = App.Story.create(data[i]);
         self.pushObject(story);
@@ -126,7 +124,7 @@ App.sprintController = Em.Object.create({
   refresh: function() {
     var self = this;
     var base_path = App.get("base_path");
-    var endpoint = base_path + "/milestones?callback=?";
+    var endpoint = base_path + "/milestones";
     var accessToken = App.get("accessToken");
 
     var params = {
@@ -139,8 +137,8 @@ App.sprintController = Em.Object.create({
       params.access_token = accessToken;
     }
 
-    $.getJSON(endpoint, params, function(response) {
-      var sprint = response.data[0];
+    $.getJSON(endpoint, params, function(sprints) {
+      var sprint = sprints[0];
 
       if (sprint === undefined) {
         alert("No sprint has been set up");

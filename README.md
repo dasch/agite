@@ -9,6 +9,6 @@ sprint, and its issues are fetched.
 
 The stories are presented in three columns:
 
-1. To Do: open issues that do not have a pull request attached.
-2. In Progress: open issues that _do_ have a pull request attached.
-3. Done: closed issues.
+1. **To Do**: open issues that do not have a pull request attached.
+2. **In Progress**: open issues that _do_ have a pull request attached.
+3. **Done**: closed issues.

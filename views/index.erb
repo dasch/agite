@@ -20,7 +20,7 @@
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body>
+<body data-github-token="<%= @token %>">
   <script type="text/x-handlebars">
     {{#with App.sprintController.sprint}}
       <h1>sprint: {{title}}</h1>

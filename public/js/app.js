@@ -3,6 +3,8 @@ var App = Em.Application.create({
 
   repo: null,
 
+  accessToken: null,
+
   base_path: function() {
     var org = this.get('org');
     var repo = this.get('repo');
@@ -19,6 +21,7 @@ var App = Em.Application.create({
 
     this.set('org', $(document.body).data('github-org'));
     this.set('repo', $(document.body).data('github-repo'));
+    this.set('accessToken', $(document.body).data('github-token'));
 
     this.addSection("to-do", "To Do");
     this.addSection("in-progress", "In Progress");
@@ -86,7 +89,16 @@ App.storiesController = Em.ArrayController.create({
     var base_path = App.get("base_path");
     var endpoint = base_path + "/issues?callback=?";
     var sprintNumber = App.sprintController.sprint.number;
-    var params = { milestone: sprintNumber, state: state };
+    var accessToken = App.get("accessToken");
+
+    var params = {
+      milestone: sprintNumber,
+      state: state
+    };
+
+    if (accessToken !== "") {
+      params.accessToken = accessToken;
+    }
 
     $.getJSON(endpoint, params, function(response) {
       var data = response.data;
@@ -108,8 +120,18 @@ App.sprintController = Em.Object.create({
   refresh: function() {
     var self = this;
     var base_path = App.get("base_path");
-    var params = { sort: "due_at", direction: "asc", limit: 1 };
     var endpoint = base_path + "/milestones?callback=?";
+    var accessToken = App.get("accessToken");
+
+    var params = {
+      sort: "due_at",
+      direction: "asc",
+      limit: 1
+    };
+
+    if (accessToken !== "") {
+      params.accessToken = accessToken;
+    }
 
     $.getJSON(endpoint, params, function(response) {
       var sprint = response.data[0];

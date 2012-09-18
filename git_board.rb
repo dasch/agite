@@ -29,7 +29,7 @@ class GitBoard < Sinatra::Base
       auth = request.env['omniauth.auth']
       token = auth['credentials']['token']
     else
-      token = "foo"
+      token = ""
     end
 
     session['token'] = token

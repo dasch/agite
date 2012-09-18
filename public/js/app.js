@@ -1,8 +1,24 @@
 var App = Em.Application.create({
-  repo_path: "https://api.github.com/repos/dasch/agile-glory",
+  org: null,
+
+  repo: null,
+
+  base_path: function() {
+    var org = this.get('org');
+    var repo = this.get('repo');
+
+    if (org === undefined || repo === undefined) {
+      throw "Invalid org or repo";
+    }
+
+    return "https://api.github.com/repos/" + org + "/" + repo;
+  }.property('org', 'repo'),
 
   ready: function() {
     this._super();
+
+    this.set('org', $(document.body).data('github-org'));
+    this.set('repo', $(document.body).data('github-repo'));
 
     this.addSection("to-do", "To Do");
     this.addSection("in-progress", "In Progress");
@@ -67,7 +83,8 @@ App.storiesController = Em.ArrayController.create({
 
   loadIssues: function(state) {
     var self = this;
-    var endpoint = App.repo_path + "/issues?callback=?";
+    var base_path = App.get("base_path");
+    var endpoint = base_path + "/issues?callback=?";
     var sprintNumber = App.sprintController.sprint.number;
     var params = { milestone: sprintNumber, state: state };
 
@@ -90,11 +107,16 @@ App.sprintController = Em.Object.create({
 
   refresh: function() {
     var self = this;
+    var base_path = App.get("base_path");
     var params = { sort: "due_at", direction: "asc", limit: 1 };
-    var endpoint = App.repo_path + "/milestones?callback=?";
+    var endpoint = base_path + "/milestones?callback=?";
 
     $.getJSON(endpoint, params, function(response) {
       var sprint = response.data[0];
+
+      if (sprint === undefined) {
+        alert("No sprint has been set up");
+      }
 
       self.sprint.set("title", sprint.title);
       self.sprint.set("number", sprint.number);

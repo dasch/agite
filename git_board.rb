@@ -16,16 +16,6 @@ class GitBoard < Sinatra::Base
 
   enable :sessions
 
-  get '/' do
-    @token = session['token']
-
-    if @token.nil?
-      redirect '/auth'
-    else
-      erb :index
-    end
-  end
-
   get '/auth' do
     if development?
       redirect '/auth/developer'
@@ -44,6 +34,23 @@ class GitBoard < Sinatra::Base
 
     session['token'] = token
 
-    redirect '/'
+    redirect session['return_to']
+  end
+
+  get '/' do
+    redirect '/dasch/agite'
+  end
+
+  get '/:org/:repo' do
+    @org = params[:org]
+    @repo = params[:repo]
+    @token = session['token']
+
+    if @token.nil?
+      session['return_to'] = "/#{@org}/#{@repo}"
+      redirect '/auth'
+    else
+      erb :index
+    end
   end
 end

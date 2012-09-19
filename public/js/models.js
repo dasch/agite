@@ -11,7 +11,19 @@ App.Repo = Em.Object.extend({
     }
 
     return "https://api.github.com/repos/" + org + "/" + repo;
-  }.property('organization', 'name')
+  }.property('organization', 'name'),
+
+  request: function(path, params, callback) {
+    var base_path = this.get("base_path");
+    var accessToken = this.get("accessToken");
+    var endpoint = base_path + path;
+
+    if (accessToken !== "") {
+      params.access_token = accessToken;
+    }
+
+    $.getJSON(endpoint, params, callback);
+  }
 });
 
 App.Story = Em.Object.extend({

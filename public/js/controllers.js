@@ -17,21 +17,13 @@ App.storiesController = Em.ArrayController.create({
 
   loadIssues: function(state) {
     var self = this;
-    var base_path = App.repo.get("base_path");
-    var endpoint = base_path + "/issues";
     var sprintNumber = App.sprintController.sprint.number;
-    var accessToken = App.repo.get("accessToken");
-
     var params = {
       milestone: sprintNumber,
       state: state
     };
 
-    if (accessToken !== "") {
-      params.access_token = accessToken;
-    }
-
-    $.getJSON(endpoint, params, function(data) {
+    App.repo.request("/issues", params, function(data) {
       for (var i = 0; i < data.length; i++) {
         var story = App.Story.create(data[i]);
         self.pushObject(story);
@@ -48,21 +40,13 @@ App.sprintController = Em.Object.create({
 
   refresh: function() {
     var self = this;
-    var base_path = App.repo.get("base_path");
-    var endpoint = base_path + "/milestones";
-    var accessToken = App.repo.get("accessToken");
-
     var params = {
       sort: "due_at",
       direction: "asc",
       limit: 1
     };
 
-    if (accessToken !== "") {
-      params.access_token = accessToken;
-    }
-
-    $.getJSON(endpoint, params, function(sprints) {
+    App.repo.request("/milestones", params, function(sprints) {
       var sprint = sprints[0];
 
       if (sprint === undefined) {

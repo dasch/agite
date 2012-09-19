@@ -23,9 +23,9 @@ App.storiesController = Em.ArrayController.create({
       state: state
     };
 
-    App.repo.request("/issues", params, function(data) {
-      for (var i = 0; i < data.length; i++) {
-        var story = App.Story.create(data[i]);
+    App.repo.request("/issues", params, function(issues) {
+      for (var i = 0; i < issues.length; i++) {
+        var story = App.Story.create(issues[i]);
         self.pushObject(story);
       }
     });
@@ -43,14 +43,14 @@ App.sprintController = Em.Object.create({
       limit: 1
     };
 
-    App.repo.request("/milestones", params, function(sprints) {
-      var sprint = sprints[0];
+    App.repo.request("/milestones", params, function(milestones) {
+      var milestone = milestones[0];
 
-      if (sprint === undefined) {
-        alert("No sprint has been set up");
+      if (milestone === undefined) {
+        alert("No milestone has been set up");
       }
 
-      self.set("sprint", App.Sprint.create(sprint));
+      self.set("sprint", App.Sprint.create(milestone));
     });
   }
 });

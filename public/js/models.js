@@ -48,5 +48,5 @@ App.Story = Em.Object.extend({
         return "to-do";
       }
     }
-  }.property()
+  }.property('pull_request')
 });

@@ -1,2 +1,2 @@
-require './git_board'
+require './agite'
 run GitBoard

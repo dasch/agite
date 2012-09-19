@@ -1,4 +1,4 @@
-App.storiesController = Em.ArrayController.create({
+App.StoriesController = Em.ArrayController.extend({
   content: null,
 
   refresh: function() {
@@ -32,7 +32,7 @@ App.storiesController = Em.ArrayController.create({
   }
 });
 
-App.sprintController = Em.Object.create({
+App.SprintController = Em.Object.extend({
   sprint: null,
 
   refresh: function() {

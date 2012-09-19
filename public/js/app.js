@@ -5,8 +5,15 @@ var App = Em.Application.create({
 
   repo: null,
 
+  sprintController: null,
+
+  storiesController: null,
+
   ready: function() {
     this._super();
+
+    this.set('storiesController', App.StoriesController.create());
+    this.set('sprintController', App.SprintController.create());
 
     this.set('repo', App.Repo.create({
       organization: $(document.body).data('github-org'),

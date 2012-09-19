@@ -17,10 +17,10 @@ App.storiesController = Em.ArrayController.create({
 
   loadIssues: function(state) {
     var self = this;
-    var base_path = App.get("base_path");
+    var base_path = App.repo.get("base_path");
     var endpoint = base_path + "/issues";
     var sprintNumber = App.sprintController.sprint.number;
-    var accessToken = App.get("accessToken");
+    var accessToken = App.repo.get("accessToken");
 
     var params = {
       milestone: sprintNumber,
@@ -48,9 +48,9 @@ App.sprintController = Em.Object.create({
 
   refresh: function() {
     var self = this;
-    var base_path = App.get("base_path");
+    var base_path = App.repo.get("base_path");
     var endpoint = base_path + "/milestones";
-    var accessToken = App.get("accessToken");
+    var accessToken = App.repo.get("accessToken");
 
     var params = {
       sort: "due_at",

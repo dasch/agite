@@ -24,10 +24,8 @@ App.StoriesController = Em.ArrayController.extend({
     };
 
     App.repo.request("/issues", params, function(issues) {
-      for (var i = 0; i < issues.length; i++) {
-        var story = App.Story.create(issues[i]);
-        self.pushObject(story);
-      }
+      var stories = issues.map(function(issue) { return App.Story.create(issue); });
+      self.pushObjects(stories);
     });
   }
 });

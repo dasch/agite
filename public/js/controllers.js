@@ -12,8 +12,8 @@ App.StoriesController = Em.ArrayController.extend({
     this.loadIssues("open");
     this.loadIssues("closed");
 
-    setTimeout(function() {
-      App.storiesController.refresh();
+    Ember.run.later(this, function() {
+      this.refresh();
     }, App.UPDATE_INTERVAL);
   },
 

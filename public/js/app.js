@@ -1,8 +1,6 @@
 var App = Em.Application.create({
   UPDATE_INTERVAL: 60 * 1000,
 
-  accessToken: null,
-
   repo: null,
 
   sprintController: null,

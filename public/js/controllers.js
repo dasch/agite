@@ -1,9 +1,11 @@
 App.StoriesController = Em.ArrayController.extend({
+  sprint: null,
   content: null,
 
   refresh: function() {
-    var sprintNumber = App.sprintController.sprint.number;
-    if (sprintNumber === undefined) return;
+    this.set('sprintNumber', App.sprintController.sprint.number);
+
+    if (this.get('sprintNumber') === undefined) return;
 
     this.set("content", []);
 
@@ -17,9 +19,8 @@ App.StoriesController = Em.ArrayController.extend({
 
   loadIssues: function(state) {
     var self = this;
-    var sprintNumber = App.sprintController.sprint.number;
     var params = {
-      milestone: sprintNumber,
+      milestone: this.get('sprintNumber'),
       state: state
     };
 

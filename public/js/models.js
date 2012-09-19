@@ -26,6 +26,11 @@ App.Repo = Em.Object.extend({
   }
 });
 
+App.Sprint = Em.Object.extend({
+  number: null,
+  title: "N/A"
+});
+
 App.Story = Em.Object.extend({
   title: null,
   number: null,

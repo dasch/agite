@@ -33,10 +33,7 @@ App.storiesController = Em.ArrayController.create({
 });
 
 App.sprintController = Em.Object.create({
-  sprint: Em.Object.create({
-    number: null,
-    title: "N/A"
-  }),
+  sprint: null,
 
   refresh: function() {
     var self = this;
@@ -53,8 +50,7 @@ App.sprintController = Em.Object.create({
         alert("No sprint has been set up");
       }
 
-      self.sprint.set("title", sprint.title);
-      self.sprint.set("number", sprint.number);
+      self.set("sprint", App.Sprint.create(sprint));
     });
   }
 });

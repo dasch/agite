@@ -26,7 +26,7 @@ var App = Em.Application.create({
 
     App.sprintController.refresh(); 
 
-    App.sprintController.sprint.addObserver("number", function() {
+    App.sprintController.addObserver("sprint", function() {
       App.storiesController.refresh();
     });
   },

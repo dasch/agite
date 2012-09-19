@@ -58,7 +58,7 @@ class GitBoard < Sinatra::Base
       session['return_to'] = "/#{@org}/#{@repo}"
       redirect '/auth'
     else
-      erb :index
+      erb :sprint
     end
   end
 end

@@ -6,5 +6,5 @@ App.SectionView = Em.View.extend({
   storyListBinding: "App.storiesController",
   stories: function() {
     return this.get("storyList").filterProperty("status", this.status);
-  }.property("storyList.@each")
+  }.property("storyList.@each.status")
 });

@@ -60,6 +60,14 @@ h1 {
   text-decoration: none;
 }
 
+.story .needs-review {
+  display: inline-block;
+  padding: 2px 4px;
+  background-color: #99FF99;
+  border: 1px solid #339933;
+  border-radius: 4px;
+}
+
 .story img {
   position: absolute;
   width: 40px;

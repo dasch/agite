@@ -35,6 +35,21 @@ App.Story = Em.Object.extend({
   title: null,
   number: null,
   assignee: null,
+  labels: null,
+
+  needsReview: function() {
+    var labels = this.get("labels");
+
+    if (this.get("status") !== "in-progress")
+      return false;
+
+    if (labels === undefined)
+      return false;
+
+    return labels.some(function(label) {
+      return label.name === "needs-review";
+    });
+  }.property('status', 'labels'),
 
   status: function() {
     var hasPullRequest = (this.pull_request.html_url !== null);

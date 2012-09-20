@@ -1,2 +1,2 @@
 require './agite'
-run GitBoard
+run Agite

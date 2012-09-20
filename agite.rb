@@ -2,7 +2,7 @@ require 'bundler'
 
 Bundler.require
 
-class GitBoard < Sinatra::Base
+class Agite < Sinatra::Base
   register Sinatra::Ember
 
   ember do

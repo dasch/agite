@@ -53,3 +53,21 @@ App.SprintController = Em.Object.extend({
     });
   }
 });
+
+App.CurrentUserController = Em.Object.extend({
+  content: {
+    login: "dasch",
+    avatar_url: "https://secure.gravatar.com/avatar/a9cc05e6a7866e5fa9a7d107b5070174?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+  },
+
+  refresh: function() {
+    var self = this;
+
+    if (!App.isAuthenticated)
+      return;
+
+    App.request("/user", function(user) {
+      self.set('content', user);
+    });
+  }
+});

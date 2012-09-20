@@ -2,7 +2,7 @@ App.Repo = Em.Object.extend({
   organization: null,
   name: null,
 
-  base_path: function() {
+  basePath: function() {
     var org = this.get('organization');
     var repo = this.get('name');
 
@@ -10,19 +10,12 @@ App.Repo = Em.Object.extend({
       throw "Invalid org or repo";
     }
 
-    return "https://api.github.com/repos/" + org + "/" + repo;
+    return "/repos/" + org + "/" + repo;
   }.property('organization', 'name'),
 
   request: function(path, params, callback) {
-    var base_path = this.get("base_path");
-    var accessToken = this.get("accessToken");
-    var endpoint = base_path + path;
-
-    if (accessToken !== "") {
-      params.access_token = accessToken;
-    }
-
-    $.getJSON(endpoint, params, callback);
+    var basePath = this.get("basePath");
+    App.request(basePath + path, params, callback);
   }
 });
 

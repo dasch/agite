@@ -12,3 +12,13 @@ App.SectionView = Em.View.extend({
 App.StoryView = Em.View.extend({
   templateName: "templates/story"
 });
+
+App.CurrentUserView = Em.View.extend({
+  templateName: "templates/current_user",
+  user: null
+});
+
+App.AvatarView = Em.View.extend({
+  templateName: "templates/avatar",
+  user: null
+});

@@ -1,0 +1,6 @@
+<div id="current-user">
+  {{view App.AvatarView userBinding="user"}}
+  {{#with user}}
+    {{login}}
+  {{/with}}
+</div>

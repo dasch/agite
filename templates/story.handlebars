@@ -9,6 +9,6 @@
   </p>
 
   {{#if assignee}}
-    <img {{bindAttr src="assignee.avatar_url" title="assignee.login"}} />
+    {{view App.AvatarView userBinding="assignee"}}
   {{/if}}
 </div>

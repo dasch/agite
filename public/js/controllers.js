@@ -63,7 +63,7 @@ App.CurrentUserController = Em.Object.extend({
   refresh: function() {
     var self = this;
 
-    if (!App.isAuthenticated)
+    if (!App.get("isAuthenticated"))
       return;
 
     App.request("/user", function(user) {

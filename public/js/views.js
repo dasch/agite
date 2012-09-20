@@ -8,3 +8,7 @@ App.SectionView = Em.View.extend({
     return this.get("storyList").filterProperty("status", this.status);
   }.property("storyList.@each.status")
 });
+
+App.StoryView = Em.View.extend({
+  templateName: "templates/story"
+});

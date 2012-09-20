@@ -66,7 +66,7 @@ App.CurrentUserController = Em.Object.extend({
     if (!App.get("isAuthenticated"))
       return;
 
-    App.request("/user", function(user) {
+    App.request("/user", {}, function(user) {
       self.set('content', user);
     });
   }
